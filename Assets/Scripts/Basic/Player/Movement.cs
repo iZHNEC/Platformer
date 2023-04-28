@@ -34,8 +34,11 @@ public class Movement : MonoBehaviour
 
     private void Walk()
     {
-        _moveVector.x = Input.GetAxis("Horizontal");
-        _animator.SetFloat("moveX", Mathf.Abs(_moveVector.x));
+        const string constMoveX = "moveX";
+        const string constHorizontal = "Horizontal";
+        
+        _moveVector.x = Input.GetAxis(constHorizontal);
+        _animator.SetFloat(constMoveX, Mathf.Abs(_moveVector.x));
         _rigidbody.velocity = new Vector2(_moveVector.x * _speed, _rigidbody.velocity.y);
     }
 
@@ -43,7 +46,6 @@ public class Movement : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Space) && _onGround)
         {
-            //_rigidbody.velocity = new Vector2(_rigidbody.velocity.x, _jampForce);
             _rigidbody.AddForce(Vector2.up * _jampForce);
         }
     }
@@ -59,7 +61,9 @@ public class Movement : MonoBehaviour
 
     private void CheckingGround()
     {
+        const string constOnGround = "onGround";
+        
         _onGround = Physics2D.OverlapCircle(GroundChek.position, _checkRadius, Ground);
-        _animator.SetBool("onGround",_onGround);
+        _animator.SetBool(constOnGround,_onGround);
     }
 }
